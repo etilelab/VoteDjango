@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>WAP - 투표</title>
+
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/vendor/bootstrap/css/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="/static/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="/static/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="/static/dist/js/sb-admin-2.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">WAP 투표</a>
+        </div>
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="/onsurvey"><i class="fa fa-check fa-fw"></i> 진행중인 투표</a>
+                    </li>
+                    <li>
+                        <a href="/endsurvey"><i class="fa fa-book fa-fw"></i> 종료된 투표</a>
+                    </li>
+                    <li>
+                        <a href="/makesurvey"><i class="fa fa-edit fa-fw"></i> 투표 생성</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+</body>
+
+</html>
+

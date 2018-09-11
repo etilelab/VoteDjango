@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>WAP - 종료된 투표</title>
+
+</head>
+
+<body>
+
+    {% extends "nav.html" %}
+    {% block content %}
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">종료된 투표</h1>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            종료된 투표목록
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-group" id="accordion">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">투표 #1</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                            <br/>
+                                            <div>
+                                                10일 저녁먹을사람 구합니다~
+                                            </div>
+                                            <br/>
+                                            <script type="text/javascript">
+                                                google.charts.load('current', { 'packages': ['corechart'] });
+                                                google.charts.setOnLoadCallback(drawChart);
+                                        
+                                                function drawChart() {
+                                             
+                                                    var data = google.visualization.arrayToDataTable([
+                                                        ['메뉴', '득표'],
+                                                        ['금강', 7],
+                                                        ['돈마루', 5],
+                                                        ['학식', 4],
+                                                        ['긱식', 2],
+                                                        ['기타', 7]
+                                                    ]);
+
+                                                    var options = {
+                                                        title: '2018/07/10 저녁먹을사람 구함'
+                                                    };
+
+                                                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+                                                    chart.draw(data, options);
+                                                }
+                                            </script>
+                                            <div id="piechart" style="width: 700px; height: 500px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <script type="text/javascript">
+        function add_item() {
+            var div = document.createElement('div');
+            div.innerHTML = document.getElementById('addfield').innerHTML;
+            document.getElementById('field').appendChild(div);
+        }
+
+        function remove_item(obj) {
+            document.getElementById('field').removeChild(obj.parentNode);
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/datepicker/css/datepicker.css">
+</head>
+
+<body>
+    {% extends "nav.html" %}
+    {% block content %}
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-9">
+                    <h1 class="page-header">투표 생성</h1>
+                    <form action="" method="post">
+                        <div class="form-group">
+                            <label>제목</label>
+                            <input class="form-control" placeholder="투표 제목" name="surveyname">
+                        </div>
+                        <div class="form-group">
+                            <label>게시자</label>
+                            <input class="form-control" placeholder="투표 게시자" name="username">
+                        </div>
+                        <div class="form-group">
+                            <label>투표정보</label>
+                            <textarea class="form-control" rows="7" placeholder="투표 정보" name="surveyinfo"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>투표기한</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" data-toggle="datepicker" name="date" placeholder="날짜 입력" style="width: 80%;">
+                                <button type="button" class="btn btn-outline-secondary datepicker-trigger" disabled>
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-14">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    투표 항목
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <ol id="list" style="margin:0; padding:0; list-style:none;">
+                                            <li class="var_area02">
+                                                <div class="form-group form-inline">
+                                                    <div id="addfield" style="display:none">
+                                                        <input id="article_0" data-id-format="article_%d" name="data[article][0]" data-name-format="data[article][%d]" class="form-control" placeholder="항목 입력" style="width: 77%;">
+                                                        <button type="button" class="btn btn-warning" value="Del" onclick="remove_item(this)">항목 제거</button>
+                                                    </div>
+                                                    <div id="field"></div>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-info" value="Add" onclick="add_item()">항목 추가</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <input type="checkbox" class="styled" name="overlap" id="overlap" value="overlap">
+                                            <label for="overlap">
+                                                투표항목 중복여부
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-info btn-circle btn-lg" value="Submit">
+                                <i class="fa fa-check"></i>
+                            </button>
+                        </div>
+                        <br/>
+                        <div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://fengyuanchen.github.io/js/common.js"></script>
+    <script src="../static/datepicker/js/datepicker.js"></script>
+    <script src="../static/datepicker/js/datepicker.ko-KR.js"></script>
+    <script src="../static/datepicker/js/main.js"></script>
+
+    {% endblock %}
+</body>
+
+</html>

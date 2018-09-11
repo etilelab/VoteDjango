@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="../static/theme.css" type="text/css">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="/static/add.js"></script>
+  <script src="/static/serial.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <script>
+  $(function() {
+    $('#list').addInputArea({
+      area_var: '.var_area02',
+      btn_add: '.add_button02',
+      btn_del: '.del_button02'
+    });
+  });
+  </script>
+
+</head>
+
+<body>
+
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3" > </div>
+        <div class="col-md-6">
+
+          <form action="/createvote" method="POST">
+
+            <div class="card">
+              <div class="card-header">WAP VOTE</div>
+              <div class="card-body" >
+                <h4>투표 개설하기</h4>
+
+                  <div class="form-group">
+                    <label>투표 제목</label>
+                    <input name="subject" type="text" class="form-control" placeholder="투표주제를 입력해주세요">
+                  </div>
+
+                  <div class="form-group">
+                    <label>투표 설명</label>
+                    <input name="description" type="text" class="form-control" placeholder="투표설명을 입력해주세요">
+                  </div>
+
+                <div class="form-group">
+                    <label>항목 입력</label>
+
+                    <ol id="list" style="margin:0; padding:0; list-style:none;">
+                    <li class="var_area02">
+                      <div class="form-group form-inline">
+                        <input id="content_0" data-id-format="content_%d" name="data[content][0]" data-name-format="data[content][%d]" type="text" class="form-control mr-1" placeholder="항목 입력" style="width: 77%;">
+                      <button type="button" class="del_button02 btn btn-primary" style="width: 20%;">항목 제거</button>
+                        </div>
+                    </li>
+                    </ol>
+
+                  <button type="button" class="add_button02 btn btn-primary" value="Add">항목 추가</button>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 3%; float: right" >
+              <button type="submit" class="btn btn-primary" value="Submit">투표 개설</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
