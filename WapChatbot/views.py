@@ -4,6 +4,7 @@ from WapChatbot.models import Question, Choice
 from django.urls import reverse
 from django.utils import timezone
 
+
 # 인덱스 페이지
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
@@ -30,15 +31,20 @@ def vote(request, question_id):
 # 투표 생성
 def makesurvey(request):
     question_subject = request.POST['question_subject']
+    question_info = request.POST['question_info']
     question_make_name = request.POST['question_make_name']
-    question_overlap = request.POST['question_overlap']
+    question_flag = False
 
-    print(question_overlap)
+    question_overlap = False
+    if 'question_overlap' in request.POST:
+        question_overlap = True
 
-    question_flag = True
-    question_pub = request.POST['question_pub_date']
-    q = Question(question_subject=question_subject, question_make_name=question_make_name,
-                 question_flag = question_flag, question_pub = question_pub, pub_date=timezone.now())
+    q = Question(question_subject=question_subject,
+                 question_make_name=question_make_name,
+                 question_info=question_info,
+                 question_pub_date=timezone.now(),
+                 question_flag=question_flag,
+                 question_overlap=question_overlap)
 
     q.save()
 

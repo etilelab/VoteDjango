@@ -64,8 +64,10 @@
                 <div class="col-lg-9">
                     <h1 class="page-header">투표 생성</h1>
 
-                    {% csrf_token %}
-                    <form action="{% url 'WapChatbot:makesurvey' question.id %}" method="post">
+
+                    <form action="{% url 'makesurvey' %}" method="post">
+
+                        {% csrf_token %}
 
                         <div class="form-group">
                             <label>제목</label>
@@ -114,7 +116,7 @@
                                 <div class="panel-footer">
                                     <div class="form-group">
                                         <div class="checkbox">
-                                            <input type="checkbox" class="styled" name="question_overlap" id="overlap" value="overlap">
+                                            <input type="checkbox" class="styled" name="question_overlap" id="overlap" value="on">
                                             <label for="overlap">
                                                 투표항목 중복여부
                                             </label>
