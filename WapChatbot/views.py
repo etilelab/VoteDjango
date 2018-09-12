@@ -35,10 +35,13 @@ def makesurvey(request):
         question_info = request.POST['question_info']
         question_make_name = request.POST['question_make_name']
         question_flag = False
+        question_choices= request.POST['choice_items']
 
         question_overlap = False
         if 'question_overlap' in request.POST:
             question_overlap = True
+
+        print(question_overlap, question_subject)
 
         q = Question(question_subject=question_subject,
                      question_make_name=question_make_name,
@@ -48,6 +51,12 @@ def makesurvey(request):
                      question_overlap=question_overlap)
 
         q.save()
+
+        for choice_index in range(1,len(question_choices)):
+            c = Choice(question=q, choice_text=question_choices[choice_index], votes=0,votes_names="")
+            c.save()
+
+        return HttpResponseRedirect(reverse('onsurvey'))
     else:
         return render(request, 'makesurvey.html')
 
@@ -57,14 +66,15 @@ def endsurvey(request):
 
 
 def onsurvey(request):
-    question_list = Question.objects.all()
+    question_list = Question.objects.order_by('-question_pub_date')
 
     show_question_list = []
     for question in question_list:
-        if question.question_flag is True and len(show_question_list) < 5:
+        if question.question_flag is False and len(show_question_list) < 10:
             show_question_list.append(question)
 
-    context = {'question_list',show_question_list}
+    context = {'question_list':show_question_list}
+
     return render(request, 'onsurvey.html',context)
 
 
