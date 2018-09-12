@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿{% load staticfiles %}
+{% load static %}
+
+<!DOCTYPE html>
 <html lang="ko">
 
 <head>
@@ -13,31 +16,68 @@
             document.getElementById('field').removeChild(obj.parentNode);
         }
     </script>
+    <script>
+        $(function () {
+            $('').datepicker({
+            autoHide: true,
+            language: 'ko-KR'
+            });
+        });
+      </script>
+
+
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/static/datepicker/css/datepicker.css">
+    <link rel="stylesheet" href="../static/datepicker/css/datepicker.css">
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../static/vendor/bootstrap/css/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../static/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="../static/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+    <script type="text/javascript" src="../static/test.js"></script>
+
+
+
+    <script src="../static/vendor/jquery/jquery.min.js"></script>
+
+    <script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="../static/dist/js/sb-admin-2.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+
+
+
 </head>
 
 <body>
-    {% extends "nav.html" %}
+
+    {% include "nav.html" %}
     {% block content %}
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-9">
                     <h1 class="page-header">투표 생성</h1>
-                    <form action="" method="post">
+
+                    {% csrf_token %}
+                    <form action="{% url 'WapChatbot:makesurvey' question.id %}" method="post">
+
                         <div class="form-group">
                             <label>제목</label>
-                            <input class="form-control" placeholder="투표 제목" name="surveyname">
+                            <input class="form-control" placeholder="투표 제목" name="question_subject">
                         </div>
                         <div class="form-group">
                             <label>게시자</label>
-                            <input class="form-control" placeholder="투표 게시자" name="username">
+                            <input class="form-control" placeholder="투표 게시자" name="question_make_name">
                         </div>
                         <div class="form-group">
                             <label>투표정보</label>
-                            <textarea class="form-control" rows="7" placeholder="투표 정보" name="surveyinfo"></textarea>
+                            <textarea class="form-control" rows="7" placeholder="투표 정보" name="question_info"></textarea>
                         </div>
                         <div class="form-group">
                             <label>투표기한</label>
@@ -74,7 +114,7 @@
                                 <div class="panel-footer">
                                     <div class="form-group">
                                         <div class="checkbox">
-                                            <input type="checkbox" class="styled" name="overlap" id="overlap" value="overlap">
+                                            <input type="checkbox" class="styled" name="question_overlap" id="overlap" value="overlap">
                                             <label for="overlap">
                                                 투표항목 중복여부
                                             </label>
@@ -101,9 +141,11 @@
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://fengyuanchen.github.io/js/common.js"></script>
-    <script src="../static/datepicker/js/datepicker.js"></script>
-    <script src="../static/datepicker/js/datepicker.ko-KR.js"></script>
-    <script src="../static/datepicker/js/main.js"></script>
+    <script src="static/datepicker/js/datepicker.js"></script>
+    <script src="static/datepicker/js/datepicker.common.js"></script>
+    <script src="static/datepicker/js/datepicker.esm.js"></script>
+    <script src="static/datepicker/js/datepicker.ko-KR.js"></script>
+    <script src="static/datepicker/css/datepicker.css"></script>
 
     {% endblock %}
 </body>
