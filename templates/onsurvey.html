@@ -119,7 +119,7 @@
                                                             {% for choice in question.choice_set.all %}
 
                                                                 <div class="checkbox checkbox-info">
-                                                                    <input type="checkbox" class="styled" name="optionCheckboxes" id="optionCheckboxes{{ forloop.counter }}" value="choice">
+                                                                    <input type="checkbox" class="styled" name="optionCheckboxes" id="optionCheckboxes{{ forloop.counter }}" value="{{ choice.id }}">
                                                                     <label for="optionCheckboxes{{ forloop.counter }}">
                                                                         {{ choice.choice_text }}
                                                                     </label>

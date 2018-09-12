@@ -15,20 +15,26 @@ def index(request):
 
 # 투표하기 페이지, POST
 def vote(request, question_id):
-
     question = get_object_or_404(Question, pk=question_id)
+
     try:
-        selected_choice = question.choice_set.get(pk=request.POST['choice'])
+        selected_choice_list = []
+        for selected_choice in request.POST['optionCheckboxes']:
+            selected_choice_list.append(question.choice_set.get(pk=selected_choice))
+
+
     except(KeyError, Choice.DoesNotExist):
         return render(request, 'detail.html',{
             'question':question,
             'error_message':"You didn't select a choice",
         })
     else:
-        selected_choice.votes += 1
-        selected_choice.save()
-        return HttpResponseRedirect(reverse('tutorial:results',args=(question_id,)))
 
+        for choice in selected_choice_list:
+            choice.votes += 1
+            choice.save()
+
+        return HttpResponseRedirect(reverse('tutorial:results',args=(question_id,)))
 
 # 투표 생성
 def makesurvey(request):
