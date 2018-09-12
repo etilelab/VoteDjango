@@ -9,11 +9,13 @@ from django.utils import timezone
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     context = {'latest_question_list':latest_question_list}
+
     return render(request, 'makesurvey.html', context)
 
 
 # 투표하기 페이지, POST
 def vote(request, question_id):
+
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
@@ -62,7 +64,16 @@ def makesurvey(request):
 
 
 def endsurvey(request):
-    return render(request, 'endsurvey.html')
+    question_list = Question.objects.order_by('-question_pub_date')
+
+    show_question_list = []
+    for question in question_list:
+        if question.question_flag is True and len(show_question_list) < 10:
+            show_question_list.append(question)
+
+    context = {'question_list': show_question_list}
+
+    return render(request, 'endsurvey.html', context)
 
 
 def onsurvey(request):
