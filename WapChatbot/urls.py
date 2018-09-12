@@ -21,9 +21,12 @@ urlpatterns = [
     path('admin/', admin.site.urls), # 관리자 페이지
     path('', views.index, name='index'), # 인덱스 페이지
 
+    path('onsurvey/', views.onsurvey, name='onsurvey'),
+    path('endsurvey/',views.endsurvey, name='endsurvey'),
+    path('makesurvey/', views.makesurvey, name='makesurvey'),
+
     path('<int:question_id>/', views.detail, name='detail'),
     path('<int:question_id>/result/', views.results, name='results'),
     path('<int:question_id>/vote/', views.vote, name='vote'),
-    path('makesurvey/', views.makesurvey, name='makesurvey'), # 투표 생성 URL
-
+     # 투표 생성 URL
 ]

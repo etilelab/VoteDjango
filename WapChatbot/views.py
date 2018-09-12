@@ -30,23 +30,35 @@ def vote(request, question_id):
 
 # 투표 생성
 def makesurvey(request):
-    question_subject = request.POST['question_subject']
-    question_info = request.POST['question_info']
-    question_make_name = request.POST['question_make_name']
-    question_flag = False
 
-    question_overlap = False
-    if 'question_overlap' in request.POST:
-        question_overlap = True
+    if request.method == 'POST':
+        question_subject = request.POST['question_subject']
+        question_info = request.POST['question_info']
+        question_make_name = request.POST['question_make_name']
+        question_flag = False
 
-    q = Question(question_subject=question_subject,
-                 question_make_name=question_make_name,
-                 question_info=question_info,
-                 question_pub_date=timezone.now(),
-                 question_flag=question_flag,
-                 question_overlap=question_overlap)
+        question_overlap = False
+        if 'question_overlap' in request.POST:
+            question_overlap = True
 
-    q.save()
+        q = Question(question_subject=question_subject,
+                     question_make_name=question_make_name,
+                     question_info=question_info,
+                     question_pub_date=timezone.now(),
+                     question_flag=question_flag,
+                     question_overlap=question_overlap)
+
+        q.save()
+    else:
+        return render(request, 'makesurvey.html')
+
+
+def endsurvey(request):
+    return render(request, 'endsurvey.html')
+
+
+def onsurvey(request):
+    return render(request, 'onsurvey.html')
 
 
 def detail(request, question_id):
