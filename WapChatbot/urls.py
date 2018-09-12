@@ -20,13 +20,8 @@ from WapChatbot import views
 urlpatterns = [
     path('admin/', admin.site.urls), # 관리자 페이지
     path('', views.index, name='index'), # 인덱스 페이지
-
-    path('onsurvey/', views.onsurvey, name='onsurvey'),
-    path('endsurvey/',views.endsurvey, name='endsurvey'),
-    path('makesurvey/', views.makesurvey, name='makesurvey'),
-
-    path('<int:question_id>/', views.detail, name='detail'),
-    path('<int:question_id>/result/', views.results, name='results'),
-    path('<int:question_id>/vote/', views.vote, name='vote'),
-     # 투표 생성 URL
+    path('onsurvey/', views.onsurvey, name='onsurvey'), # 진행중인 투표
+    path('endsurvey/',views.endsurvey, name='endsurvey'), # 투표 종료
+    path('makesurvey/', views.makesurvey, name='makesurvey'), # 투표 만들기
+    path('votes/<int:question_id>/', views.votes, name='votes'), # 투표하기 URL
 ]

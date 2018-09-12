@@ -14,7 +14,7 @@ def index(request):
 
 
 # 투표하기 페이지, POST
-def vote(request, question_id):
+def votes(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
 
     try:
@@ -34,7 +34,7 @@ def vote(request, question_id):
             choice.votes += 1
             choice.save()
 
-        return HttpResponseRedirect(reverse('tutorial:results',args=(question_id,)))
+        return HttpResponseRedirect(reverse('onsurvey'))
 
 # 투표 생성
 def makesurvey(request):
@@ -43,13 +43,13 @@ def makesurvey(request):
         question_info = request.POST['question_info']
         question_make_name = request.POST['question_make_name']
         question_flag = False
-        question_choices= request.POST['choice_items']
+        question_choices= request.POST.getlist('choice_items')
 
         question_overlap = False
         if 'question_overlap' in request.POST:
             question_overlap = True
 
-        print(question_overlap, question_subject)
+        print(question_choices)
 
         q = Question(question_subject=question_subject,
                      question_make_name=question_make_name,
@@ -93,14 +93,4 @@ def onsurvey(request):
     context = {'question_list':show_question_list}
 
     return render(request, 'onsurvey.html',context)
-
-
-def detail(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'detail.html', {'question': question})
-
-
-def results(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'results.html', {'question': question})
 

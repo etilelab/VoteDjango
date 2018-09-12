@@ -49,56 +49,7 @@
 
                                 <div class="panel-group" id="group{{ question.id }}" style="margin-bottom: 0;">
 
-                                    {% if not question.question_overlap %}
-
-                                        <div class="panel panel-default">
-
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#{{ question.id }}" href="#collapse{{ question.id }}">{{ question.question_subject }}</a>
-                                                </h4>
-                                            </div>
-
-
-                                            <div id="collapse{{ question.id }}" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <br />
-                                                    <div>투표항목 중복불가</div>
-                                                    <br />
-                                                    <div class="form-group">
-                                                        <div class="checkbox checkbox-info">
-                                                            <input type="radio" class="styled" name="optionsRadios{{ question.id }}" id="optionsRadios1" value="option11">
-                                                            <label for="optionsRadios{{ question.id }}">
-                                                                안건 #1
-                                                            </label>
-                                                        </div>
-                                                        <br />
-                                                        <div class="checkbox checkbox-info">
-                                                            <input type="radio" class="styled" name="optionsRadios{{ question.id }}" id="optionsRadios2" value="option12">
-                                                            <label for="optionsRadios{{ question.id }}">
-                                                                안건 #2
-                                                            </label>
-                                                        </div>
-                                                        <br />
-                                                        <div class="checkbox checkbox-info">
-                                                            <input type="radio" class="styled" name="optionsRadios{{ question.id }}" id="optionsRadios3" value="option13">
-                                                            <label for="optionsRadios{{ question.id }}">
-                                                                안건 #3
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <br />
-                                                    <hr>
-                                                    <div class="text-center">
-                                                        <button type="button" class="btn btn-info btn-circle btn-lg" value="submit">
-                                                            <i class="fa fa-check"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    {% else %}
+                                    {% if question.question_overlap %}
 
                                         <form action="{% url 'votes' question.id %}" method="post">
 
