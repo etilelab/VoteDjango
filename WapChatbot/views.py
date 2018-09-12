@@ -7,11 +7,7 @@ from django.utils import timezone
 
 # 인덱스 페이지
 def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    context = {'latest_question_list':latest_question_list}
-
-    return render(request, 'makesurvey.html', context)
-
+    return render(request, 'makesurvey.html')
 
 # 투표하기 페이지, POST
 def votes(request, question_id):
@@ -19,9 +15,8 @@ def votes(request, question_id):
 
     try:
         selected_choice_list = []
-        for selected_choice in request.POST['optionCheckboxes']:
+        for selected_choice in request.POST.getlist('optionCheckboxes'):
             selected_choice_list.append(question.choice_set.get(pk=selected_choice))
-
 
     except(KeyError, Choice.DoesNotExist):
         return render(request, 'detail.html',{
@@ -48,8 +43,6 @@ def makesurvey(request):
         question_overlap = False
         if 'question_overlap' in request.POST:
             question_overlap = True
-
-        print(question_choices)
 
         q = Question(question_subject=question_subject,
                      question_make_name=question_make_name,
