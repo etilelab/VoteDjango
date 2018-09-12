@@ -30,7 +30,6 @@ def vote(request, question_id):
 
 # 투표 생성
 def makesurvey(request):
-
     if request.method == 'POST':
         question_subject = request.POST['question_subject']
         question_info = request.POST['question_info']
@@ -58,7 +57,15 @@ def endsurvey(request):
 
 
 def onsurvey(request):
-    return render(request, 'onsurvey.html')
+    question_list = Question.objects.all()
+
+    show_question_list = []
+    for question in question_list:
+        if question.question_flag is True and len(show_question_list) < 5:
+            show_question_list.append(question)
+
+    context = {'question_list',show_question_list}
+    return render(request, 'onsurvey.html',context)
 
 
 def detail(request, question_id):
