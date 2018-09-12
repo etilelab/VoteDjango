@@ -19,7 +19,7 @@ def votes(request, question_id):
             selected_choice_list.append(question.choice_set.get(pk=selected_choice))
 
     except(KeyError, Choice.DoesNotExist):
-        return render(request, 'detail.html',{
+        return render(request, 'error.html',{
             'question':question,
             'error_message':"You didn't select a choice",
         })
@@ -63,6 +63,7 @@ def makesurvey(request):
 
 
 def endsurvey(request):
+
     question_list = Question.objects.order_by('-question_pub_date')
 
     show_question_list = []
@@ -70,7 +71,9 @@ def endsurvey(request):
         if question.question_flag is True and len(show_question_list) < 10:
             show_question_list.append(question)
 
-    context = {'question_list': show_question_list}
+    choice_list = []
+    for q in show_question_list:
+        choice_list.append([q, q.choice_set.all()])
 
     return render(request, 'endsurvey.html', context)
 

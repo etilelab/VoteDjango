@@ -49,24 +49,43 @@
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#accordion{{ question.id }}" href="#collapse{{ question.id }}"> {{ question.question_subject }} ({{ question.question_pub_date }})</a>
+
                                             </h4>
                                         </div>
 
                                         <div id="collapse{{ question.id }}" class="panel-collapse collapse">
                                             <div class="panel-body">
 
+                                            <div>
+
+                                            </div>
+
+
                                                 <script type="text/javascript">
+
+                                                    var jbAry = new Array();
+
+                                                    var i = 1;
+                                                    jbAry[0]=['항목', '득표'];
+
+                                                    {% for choice in question.choice_set.all %}
+                                                        alert({{ choice.choice_text }});
+                                                        jbAry[i] = [{{ choice.choice_text }},{{ choice.votes }}];
+                                                        i=i+1;
+                                                        alert(jbAry[i]);
+
+                                                    {%  endfor %}
+
+
                                                     google.charts.load('current', { 'packages': ['corechart'] });
                                                     google.charts.setOnLoadCallback(drawChart);
 
                                                     function drawChart() {
 
                                                         var data = google.visualization.arrayToDataTable([
-                                                            ['항목', '득표'],
-                                                            {% for choice in question.choice_set.all %}
-                                                                ['{{ choice.choice_text }}', {{ choice.votes }}],
-                                                            {%  endfor %}
+                                                            jbAry
                                                         ]);
+
 
                                                         var options = {
                                                             title: '{{ question.question_subject }}',
