@@ -3,6 +3,8 @@ from django.shortcuts import render, get_object_or_404
 from WapChatbot.models import Question, Choice
 from django.urls import reverse
 from django.utils import timezone
+import json
+
 
 
 # 인덱스 페이지
@@ -64,6 +66,7 @@ def makesurvey(request):
 
 def endsurvey(request):
 
+
     question_list = Question.objects.order_by('-question_pub_date')
 
     show_question_list = []
@@ -71,11 +74,18 @@ def endsurvey(request):
         if question.question_flag is True and len(show_question_list) < 10:
             show_question_list.append(question)
 
-    choice_list = []
+    context_list = []
     for q in show_question_list:
-        choice_list.append([q, q.choice_set.all()])
+        choice_list = []
+        choice_list.append(['목록','득표'])
+        for q2 in q.choice_set.all():
+            choice_list.append([q2.choice_text, q2.votes])
+        context_list.append(choice_list)
 
-    return render(request, 'endsurvey.html', context)
+
+
+    return render(request, 'endsurvey.html', {'question_list':show_question_list,
+                                              'context_list':context_list})
 
 
 def onsurvey(request):

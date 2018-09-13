@@ -32,6 +32,14 @@
     {% extends "nav.html" %}
     {% block content %}
     <div id="page-wrapper">
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+</script>
+
+{{ chart.as_html }}
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
@@ -57,48 +65,32 @@
                                             <div class="panel-body">
 
                                             <div>
-
+                                                {{ question.question_info }}
+                                                {{ forloop.counter }}
+                                                {{ question.id }}
                                             </div>
 
-
-                                                <script type="text/javascript">
-
-                                                    var jbAry = new Array();
-
-                                                    var i = 1;
-                                                    jbAry[0]=['항목', '득표'];
-
-                                                    {% for choice in question.choice_set.all %}
-                                                        alert({{ choice.choice_text }});
-                                                        jbAry[i] = [{{ choice.choice_text }},{{ choice.votes }}];
-                                                        i=i+1;
-                                                        alert(jbAry[i]);
-
-                                                    {%  endfor %}
-
+                                            <script type="text/javascript">
 
                                                     google.charts.load('current', { 'packages': ['corechart'] });
                                                     google.charts.setOnLoadCallback(drawChart);
 
+                                                    var my_list = {{ context_list|safe }};
+
                                                     function drawChart() {
 
-                                                        var data = google.visualization.arrayToDataTable([
-                                                            jbAry
-                                                        ]);
+                                                        var my_list = {{ context_list|safe }};
 
-
+                                                        var data = google.visualization.arrayToDataTable(my_list[{{ forloop.counter }} -1]);
                                                         var options = {
-                                                            title: '{{ question.question_subject }}',
-                                                            width:'100%',
-
+                                                            title: '{{ question.question_text }}'
                                                         };
-
-                                                        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
+                                                        var chart = new google.visualization.PieChart(document.getElementById('piechart{{ question.id }}'));
                                                         chart.draw(data, options);
                                                     }
-                                                </script>
-                                                <div id="piechart" style="width: 700px; height: 200px;"></div>
+                                            </script>
+
+                                                <div id="piechart{{ question.id }}" style="width: 700px; height: 200px;"></div>
                                             </div>
                                         </div>
                                     </div>
